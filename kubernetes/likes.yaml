@@ -1,0 +1,111 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: likesdb-pv-volume-test
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/likesdb/data"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: likesdb-pv-claim-test
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: likes
+spec:
+  selector:
+    matchLabels:
+      app: likes
+  replicas: 1 # tells deployment to run 1 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: likes
+    spec:
+      containers:
+        - name: likes
+          image: imagehostmad/likes:latest
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "1234"
+            - name: MYSQL_URI
+              value: "jdbc:mysql://likesdb:3306/Likes"
+            - name: AMQP_URI
+              value: "amqps://zdwrqrmt:sBN1bzjrboG5tUJM2VvuzNsYSxUlLV4-@roedeer.rmq.cloudamqp.com/zdwrqrmt"
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: likesdb
+spec:
+  ports:
+    - port: 3306
+  selector:
+    app: likesdb
+  clusterIP: None
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: likesdb
+spec:
+  selector:
+    matchLabels:
+      app: likesdb
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: likesdb
+    spec:
+      containers:
+        - image: mysql:8
+          name: likesdb
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "1234"
+          ports:
+            - containerPort: 3306
+              name: likesdb
+          volumeMounts:
+            - name: likesdb-initdb
+              mountPath: /docker-entrypoint-initdb.d
+            - name: likesdb-persistent-storage-test
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: likesdb-initdb
+          configMap:
+            name: likesdb-initdb-config
+        - name: likesdb-persistent-storage-test
+          persistentVolumeClaim:
+            claimName: likesdb-pv-claim-test
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: likesdb-initdb-config
+data:
+  initdb.sql: |
+    CREATE DATABASE IF NOT EXISTS Likes;
+    USE Likes;
+    CREATE TABLE IF NOT EXISTS Likes (postID varchar(255) NOT NULL,userID varchar(255) NOT NULL,Liked_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
