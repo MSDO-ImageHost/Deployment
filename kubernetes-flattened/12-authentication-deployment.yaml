@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: authentication
+spec:
+  selector:
+    matchLabels:
+      app: authentication
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: authentication
+    spec:
+      containers:
+        - name: authentication
+          image: imagehostmad/authentication:latest
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "1234"
+            - name: MYSQL_URI
+              value: "jdbc:mysql://likesdb:3306/Likes"
+            - name: AMQP_URI
+              value: amqp://guest:guest@rabbitmq-0.rabbitmq.default.svc.cluster.local
+          ports:
+            - containerPort: 80
