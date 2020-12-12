@@ -33,7 +33,7 @@ spec:
   selector:
     matchLabels:
       app: likes
-  replicas: 1 # tells deployment to run 1 pods matching the template
+  replicas: 1
   template:
     metadata:
       labels:
@@ -48,7 +48,7 @@ spec:
             - name: MYSQL_URI
               value: "jdbc:mysql://likesdb:3306/Likes"
             - name: AMQP_URI
-              value: "amqps://zdwrqrmt:sBN1bzjrboG5tUJM2VvuzNsYSxUlLV4-@roedeer.rmq.cloudamqp.com/zdwrqrmt"
+              value: amqp://guest:guest@rabbitmq-0.rabbitmq.default.svc.cluster.local
           ports:
             - containerPort: 80
 ---
