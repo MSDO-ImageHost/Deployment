@@ -10,6 +10,10 @@ $ echo -n $(docker exec rabbit-cookie cat /var/lib/rabbitmq/.erlang.cookie) | ba
 # VEZQWllJR01HR1JZSVVSQ1hQTlA=
 $ docker stop rabbit-cookie
 ```
+Or 
+```bash
+$ /bin/bash -c bake-rabbit-cookie.sh
+```
 
 Set RabbitMQ mirroring policy
 ```bash
@@ -28,6 +32,11 @@ Open http://localhost:8080
 
 ## Deploy in minikube
 
+Start minikube
+```bash
+minicube start
+```
+Apply k8s configurations
 ```bash
 $ kubectl apply -f ./kubernetes/rabbit
 $ kubectl apply -f ./kubernetes/likes

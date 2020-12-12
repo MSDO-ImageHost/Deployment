@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webgateway
+  labels:
+    app: webgateway
+spec:
+  selector:
+    matchLabels:
+      app: webgateway
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: webgateway
+    spec:
+      containers:
+      - name: webgateway
+        image: imagehostmad/web-gateway
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+        env:
+        - name: RABBITMQ_URI
+          valueFrom:
+            configMapKeyRef:
+              name: imagehost-config
+              key: AMQP_URI
+        - name: RABBITMQ_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: imagehost-config
+              key: RABBIT_POST
+        - name: RABBIT_USER
+          valueFrom:
+            secretKeyRef:
+              name: imagehost-secrets
+              key: RABBIT_USERNAME
+        - name: RABBIT_PASS
+          valueFrom:
+            secretKeyRef:
+              name: imagehost-secrets
+              key: RABBIT_PASSWORD
+          limits:
