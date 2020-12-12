@@ -16,7 +16,12 @@ spec:
         - name: posts
           image: imagehostmad/posts:latest
           env:
-            - name: RABBITMQ_CONN_STRING
+            - name: JWT_HMAC_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: imagehost-secrets
+                  key: JWT_TOKEN_SECRET
+            - name: RABBITMQ_CONN_URI
               valueFrom:
                 configMapKeyRef:
                   name: imagehost-config
