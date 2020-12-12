@@ -36,8 +36,7 @@ $ kubectl apply -f ./kubernetes-flattened
 ```
 Wait for everything to start up
 ```bash
-$ minikube service webgateway --url
-// http://192.168.49.2:31065
+$ minikube service webgateway
 ```
 
 ## Deploy in Azure
