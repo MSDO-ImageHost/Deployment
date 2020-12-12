@@ -1,6 +1,6 @@
 # ImageHost kubernetes deployment guide
 
-
+![Configuration validator](https://github.com/MSDO-ImageHost/Deployment/workflows/Configuration%20validator/badge.svg)
 
 ## Prerequisite
 Fetch RabbitMQ erlang cookie
