@@ -13,20 +13,22 @@ spec:
         app: authentication
     spec:
       containers:
-        - name: MYSQL_URI
-          valueFrom:
-            configMapKeyRef:
-              name:  imagehost-config
-              key:  MYSQL_URI
-        - name: AMQP_URI
-          valueFrom:
-            configMapKeyRef:
-              name: imagehost-config
-              key: RABBITMQ_URI
-        - name:  MYSQL_ROOT_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name:  imagehost-secrets
-              key:  MYSQL_ROOT_PASSWORD
-          ports:
-            - containerPort: 80
+        - name: authentication
+          image: imagehostmad/authentication:latest
+          env:
+            - name: MYSQL_URI
+              valueFrom:
+                configMapKeyRef:
+                  name:  imagehost-config
+                  key:  MYSQL_URI
+            - name: AMQP_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: imagehost-config
+                  key: RABBITMQ_URI
+            - name:  MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name:  imagehost-secrets
+                  key:  MYSQL_ROOT_PASSWORD
+          limits:
