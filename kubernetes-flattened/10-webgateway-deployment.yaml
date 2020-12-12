@@ -21,11 +21,11 @@ spec:
         ports:
         - containerPort: 5000
         env:
-        - name: RABBITMQ_URI
+        - name: AMQP_URI
           valueFrom:
             configMapKeyRef:
               name: imagehost-config
-              key: AMQP_URI
+              key: RABBITMQ_URI
         - name: RABBITMQ_PORT
           valueFrom:
             configMapKeyRef:

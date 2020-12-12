@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: likes
-          image: imagehostmad/likes:latest
+          image: lass7965/likes:latest
           env:
             - name: MYSQL_URI
               valueFrom:
