@@ -10,12 +10,13 @@ data:
   RABBITMQ_HOST: rabbitmq-0.rabbitmq.default.svc.cluster.local
   RABBITMQ_PORT: "5672"
   RABBITMQ_URI: amqp://guest:guest@rabbitmq-0.rabbitmq.default.svc.cluster.local # should not be used
-
+  
+  
   MYSQL_HOST: ""
   MYSQL_URI: jdbc:mysql://likesdb:3306/Likes
   
   MONGODB_HOST: ""
-  MONGODB_URI: ""
+  MONGODB_URI: "mongodb://mongo-0.mongo"
 
   POSTGRES_HOST: ""
   POSTGRES_URI: ""
