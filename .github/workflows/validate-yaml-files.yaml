@@ -8,4 +8,5 @@ jobs:
     - uses: actions/checkout@master
     - name: validate
       uses: instrumenta/kubeval-action@master
-      files:  ./kubernetes-flattened
+      with:
+        files:  ./kubernetes-flattened
