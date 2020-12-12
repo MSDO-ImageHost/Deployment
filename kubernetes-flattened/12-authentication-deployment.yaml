@@ -13,14 +13,20 @@ spec:
         app: authentication
     spec:
       containers:
-        - name: authentication
-          image: imagehostmad/authentication:latest
-          env:
-            - name: MYSQL_ROOT_PASSWORD
-              value: "1234"
-            - name: MYSQL_URI
-              value: "jdbc:mysql://likesdb:3306/Likes"
-            - name: AMQP_URI
-              value: amqp://guest:guest@rabbitmq-0.rabbitmq.default.svc.cluster.local
+        - name: MYSQL_URI
+          valueFrom:
+            configMapKeyRef:
+              name:  imagehost-config
+              key:  MYSQL_URI
+        - name: AMQP_URI
+          valueFrom:
+            configMapKeyRef:
+              name: imagehost-config
+              key: RABBITMQ_URI
+        - name:  MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name:  imagehost-secrets
+              key:  MYSQL_ROOT_PASSWORD
           ports:
             - containerPort: 80
