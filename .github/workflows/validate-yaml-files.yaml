@@ -2,23 +2,13 @@ name: Configuration validator
 on: [push]
 
 jobs:
-  #yaml-schema-validation:
-  #  runs-on: ubuntu-latest
-  #  steps:
-  #  - uses: actions/checkout@v2
-  #  - uses: nrkno/yaml-schema-validator-github-action@master
-  #    with:
-  #      schema: 'schemas/schema.yaml'
-  #      target: 'target.yaml'
-
   k8s-validation:
-    #needs: [yaml-schema-validation]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: validate manifest-dir
         uses: makocchi-git/actions-k8s-manifests-validate-conftest@1.1.0
         with:
-          file: ./kubernetes
+          file: ./kubernetes-flattened
           comment: false
           #token: ${{ secrets.GITHUB_TOKEN }}
