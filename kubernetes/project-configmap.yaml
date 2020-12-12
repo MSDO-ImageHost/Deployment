@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: image-host
+  #namespace: default
+data:
+  projectName: ImageHost
+  orgId: imagehost.sdu.dk
+  baseUrl: http://localhost

@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: posts-deployment
+  labels:
+    app: posts
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: posts
+  template:
+    metadata:
+      labels:
+        app: posts
+    spec:
+      containers:
+      - name: posts
+        image: imagehostmad/posts:latest
+        env:
+          - name: MONGO_CONN_URI
+            value: mongodb://mongo:27017/?readPreference=primary&ssl=false
+          - name: RABBITMQ_CONN_URI
+            value: amqp://dev:dev@rabbitmq:5672/
+          - name: JWT_HMAC_SECRET
+            value: secret
+
+
+---
+apiVersion: mongodb.com/v1
+kind: MongoDB
+metadata:
+  name: posts-db
+spec:
+  version: 4.2.2-ent
+  opsManager:
+    configMapRef:
+      name: <configMap.metadata.name>
+            # Must match metadata.name in ConfigMap file
+  credentials: <mycredentials>
+  type: Standalone
+  persistent: true
+
+---
+apiVersion: mongodb.com/v1
+kind: MongoDBOpsManager
+metadata:
+  name: <myopsmanager>
+spec:
+  replicas: 1
+  version: <opsmanagerversion>
+  adminCredentials: <adminusercredentials>
+  externalConnectivity:
+    type: LoadBalancer
+  applicationDatabase:
+    members: 3
+    version: <mongodbversion>
+    persistent: true
