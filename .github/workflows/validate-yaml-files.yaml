@@ -10,3 +10,4 @@ jobs:
       uses: instrumenta/kubeval-action@master
       with:
         files:  ./kubernetes-flattened
+        strict: false
