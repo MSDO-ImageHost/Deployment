@@ -16,24 +16,29 @@ spec:
         - name: posts
           image: imagehostmad/posts:latest
           env:
-            - name: RABBITMQ_URI
+            - name: RABBITMQ_CONN_STRING
               valueFrom:
                 configMapKeyRef:
                   name: imagehost-config
-                  key: RABBITMQ_CONN_STRING
+                  key: RABBITMQ_URI
             - name: MONGODB_HOST
               valueFrom:
                 configMapKeyRef:
                   name: imagehost-config
-                  key: MONGO_HOST
+                  key: MONGODB_HOST
+            - name: MONGO_CONN_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: imagehost-config
+                  key: MONGODB_URI
             - name: MONGODB_USER
               valueFrom:
                 secretKeyRef:
                   name: imagehost-secrets
-                  key: MONGO_USERNAME
+                  key: MONGODB_USERNAME
             - name: MONGODB_PASS
               valueFrom:
                 secretKeyRef:
                   name: imagehost-secrets
-                  key: MONGO_PASSWORD
+                  key: MONGODB_PASSWORD
           limits:

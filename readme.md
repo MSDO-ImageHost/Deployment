@@ -5,13 +5,6 @@
 ## Prerequisite
 Fetch RabbitMQ erlang cookie
 ```bash
-$ docker run -d --rm --name rabbit-cookie rabbitmq:3.8-management
-$ echo -n $(docker exec rabbit-cookie cat /var/lib/rabbitmq/.erlang.cookie) | base64
-# VEZQWllJR01HR1JZSVVSQ1hQTlA=
-$ docker stop rabbit-cookie
-```
-Or 
-```bash
 $ /bin/bash -c bake-rabbit-cookie.sh
 ```
 
@@ -34,14 +27,18 @@ Open http://localhost:8080
 
 Start minikube
 ```bash
-minicube start
+$ minicube start
+$ minikube addons enable ingress
 ```
 Apply k8s configurations
 ```bash
-$ kubectl apply -f ./kubernetes/rabbit
-$ kubectl apply -f ./kubernetes/likes
+$ kubectl apply -f ./kubernetes-flattened
 ```
-
+Wait for everything to start up
+```bash
+$ minikube service webgateway --url
+// http://192.168.49.2:31065
+```
 
 ## Deploy in Azure
 TBD ...

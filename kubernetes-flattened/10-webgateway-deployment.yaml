@@ -26,19 +26,19 @@ spec:
             configMapKeyRef:
               name: imagehost-config
               key: RABBITMQ_URI
-        - name: RABBITMQ_PORT
+        - name: RABBIT_PORT
           valueFrom:
             configMapKeyRef:
               name: imagehost-config
-              key: RABBIT_POST
+              key: RABBITMQ_PORT
         - name: RABBIT_USER
           valueFrom:
             secretKeyRef:
               name: imagehost-secrets
-              key: RABBIT_USERNAME
+              key: RABBITMQ_USERNAME
         - name: RABBIT_PASS
           valueFrom:
             secretKeyRef:
               name: imagehost-secrets
-              key: RABBIT_PASSWORD
+              key: RABBITMQ_PASSWORD
           limits:
