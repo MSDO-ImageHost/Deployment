@@ -8,7 +8,6 @@ Fetch RabbitMQ erlang cookie
 $ /bin/bash -c bake-rabbit-cookie.sh
 ```
 
-
 ## Deploy in minikube
 
 Start minikube
@@ -31,6 +30,21 @@ $ kubectl exec -it rabbitmq-0 rabbitmqctl set_policy ha-fed \
     --apply-to queues
 ```
 
+Configure MongoDB replicaset synchronization
+```bash
+$ kubectl exec -it mongo-0 -- mongo
+> rs.initiate()
+> var cfg = rs.conf()
+> cfg.members[0].host="mongo-0.mongo:27017"
+> rs.reconfig(cfg)
+> rs.add("mongo-1.mongo:27017")
+> rs.add("mongo-2.mongo:27017")
+> exit
+// bye
+```
+
+Wait for everything to restart and connect
+
 Open webpage
 ```bash
 $ minikube service webgateway
@@ -38,7 +52,7 @@ $ minikube service webgateway
 
 
 
-## Additonal
+## Optional
 Forward RabbitMQ managment UI
 ```bash
 $ kubectl port-forward rabbitmq-0 8080:15672
