@@ -34,11 +34,14 @@ Start minikube
 ```bash
 $ minicube start
 $ minikube addons enable ingress
+// OR
+$ /bin/bash -c ./scripts/start-minikube.sh
+
 ```
 
 Apply k8s configurations
 ```bash
-$ kubectl apply -f ./kubernetes-flattened
+$ kubectl apply -f ./kubernetes
 ```
 
 Configure MongoDB replicaset synchronization
