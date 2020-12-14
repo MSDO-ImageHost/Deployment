@@ -9,5 +9,5 @@ jobs:
     - name: validate
       uses: instrumenta/kubeval-action@master
       with:
-        files:  ./kubernetes-flattened
+        files:  ./kubernetes
         strict: false
