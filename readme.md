@@ -11,7 +11,10 @@ $ /bin/bash -c bake-rabbit-cookie.sh
 Install mySQL operator (requires helm)
 ```bash
 $ helm repo add presslabs https://presslabs.github.io/charts
-$ helm install presslabs/mysql-operator --generate-name
+## For Helm v2
+$ helm install presslabs/mysql-operator --name mysql-operator
+## For Helm v3
+$ helm install mysql-operator presslabs/mysql-operator
 ```
 
 ## Deploy in minikube
