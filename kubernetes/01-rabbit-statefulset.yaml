@@ -60,7 +60,7 @@ spec:
         - name: RABBITMQ_ERLANG_COOKIE
           valueFrom:
             secretKeyRef:
-              name: rabbit-secret
+              name: imagehost-secrets
               key: RABBITMQ_ERLANG_COOKIE
         - name: K8S_HOSTNAME_SUFFIX
           value: .rabbitmq.default.svc.cluster.local
