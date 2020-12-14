@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: imagestorage
+spec:
+  selector:
+    matchLabels:
+      app: imagestorage
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: imagestorage
+    spec:
+      containers:
+        - name: imagestorage
+          image: imagehostmad/imagestorage:latest
+          env: #Needs to check that this is the env needed
+            - name: MYSQL_URI
+              valueFrom:
+                configMapKeyRef:
+                  name:  imagehost-config
+                  key:  MYSQL_URI
+            - name: AMQP_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: imagehost-config
+                  key: RABBITMQ_URI
+            - name:  MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name:  imagehost-secrets
+                  key:  MYSQL_ROOT_PASSWORD
+          limits:
