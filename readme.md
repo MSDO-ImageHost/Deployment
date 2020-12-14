@@ -27,16 +27,6 @@ Apply k8s configurations
 $ kubectl apply -f ./kubernetes-flattened
 ```
 
-Wait for everything to start up
-
-Set RabbitMQ mirroring policy
-```bash
-$ kubectl exec -it rabbitmq-0 rabbitmqctl set_policy ha-fed \
-    ".*" '{"federation-upstream-set":"all", "ha-sync-mode":"automatic", "ha-mode":"nodes", "ha-params":["rabbit@rabbitmq-0.rabbitmq.default.svc.cluster.local","rabbit@rabbitmq-1.rabbitmq.default.svc.cluster.local","rabbit@rabbitmq-2.rabbitmq.default.svc.cluster.local"]}' \
-    --priority 1 \
-    --apply-to queues
-```
-
 Configure MongoDB replicaset synchronization
 ```bash
 $ kubectl exec -it mongo-0 -- mongo
