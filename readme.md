@@ -8,13 +8,24 @@ Fetch RabbitMQ erlang cookie
 $ /bin/bash -c bake-rabbit-cookie.sh
 ```
 
-Install mySQL operator (requires helm)
+[Helm installed](https://helm.sh/docs/intro/install/)
+
+
+Install mySQL operator and mongoDB (Helm v3)
 ```bash
 $ helm repo add presslabs https://presslabs.github.io/charts
-## For Helm v2
-$ helm install presslabs/mysql-operator --name mysql-operator
-## For Helm v3
 $ helm install mysql-operator presslabs/mysql-operator
+
+$ helm repo add bitnami https://charts.bitnami.com/bitnami
+$ helm install mongoDB -f mongodb_config.yaml bitnami/mongodb
+```
+Install mySQL operator and mongoDB (Helm v2)
+```bash
+$ helm repo add presslabs https://presslabs.github.io/charts
+$ helm install presslabs/mysql-operator --name mysql-operator
+
+$ helm repo add bitnami https://charts.bitnami.com/bitnami
+$ helm install -f mongodb_config.yaml bitnami/mongodb --name mongoDB
 ```
 
 ## Deploy in minikube
