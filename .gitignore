@@ -1,3 +1,5 @@
+.env
+
 
 # Created by https://www.toptal.com/developers/gitignore/api/windows,macos,linux,vscode,intellij
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,linux,vscode,intellij
@@ -183,7 +185,17 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+
+
 # End of https://www.toptal.com/developers/gitignore/api/windows,macos,linux,vscode,intellij
 
 
-.env
+
+# Created by https://www.toptal.com/developers/gitignore/api/helm
+# Edit at https://www.toptal.com/developers/gitignore?templates=helm
+
+### Helm ###
+# Chart dependencies
+**/charts/*.tgz
+
+# End of https://www.toptal.com/developers/gitignore/api/helm

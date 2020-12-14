@@ -5,7 +5,7 @@
 ## Prerequisite
 Fetch RabbitMQ erlang cookie
 ```bash
-$ /bin/bash -c bake-rabbit-cookie.sh
+$ /bin/bash -c ./scripts/bake-rabbit-cookie.sh
 ```
 
 [Helm installed](https://helm.sh/docs/intro/install/)
@@ -69,3 +69,9 @@ Forward RabbitMQ managment UI
 $ kubectl port-forward rabbitmq-0 8080:15672
 ```
 Open http://localhost:8080
+
+
+Authenticate minikube (`default` namespace) with Dockerhub
+```bash
+$ /bin/bash -c ./scripts/authenticate-dockerhub.sh
+```
