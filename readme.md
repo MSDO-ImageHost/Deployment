@@ -8,6 +8,12 @@ Fetch RabbitMQ erlang cookie
 $ /bin/bash -c bake-rabbit-cookie.sh
 ```
 
+Install mySQL operator (requires helm)
+```bash
+$ helm repo add presslabs https://presslabs.github.io/charts
+$ helm install presslabs/mysql-operator --generate-name
+```
+
 ## Deploy in minikube
 
 Start minikube
@@ -15,6 +21,7 @@ Start minikube
 $ minicube start
 $ minikube addons enable ingress
 ```
+
 Apply k8s configurations
 ```bash
 $ kubectl apply -f ./kubernetes-flattened
