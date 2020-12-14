@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: comments
+spec:
+  selector:
+    matchLabels:
+      app: comments
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: comments
+    spec:
+      containers:
+        - name: comments
+          image: imagehostmad/comments:latest
+          env:
+            - name: MYSQL_URI
+              valueFrom:
+                configMapKeyRef:
+                  name:  imagehost-config
+                  key:  MYSQL_URI
+            - name: AMQP_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: imagehost-config
+                  key: RABBITMQ_URI
+            - name:  MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name:  imagehost-secrets
+                  key:  MYSQL_ROOT_PASSWORD
+          limits:
