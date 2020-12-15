@@ -32,7 +32,7 @@ $ helm install -f ./helm-configs/mongodb_config.yaml bitnami/mongodb --name mong
 
 Start minikube
 ```bash
-$ minicube start
+$ minikube start
 $ minikube addons enable ingress
 // OR
 $ /bin/bash -c ./scripts/start-minikube.sh
