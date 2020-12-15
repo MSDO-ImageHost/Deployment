@@ -17,7 +17,7 @@ $ helm repo add presslabs https://presslabs.github.io/charts
 $ helm install mysql-operator presslabs/mysql-operator
 
 $ helm repo add bitnami https://charts.bitnami.com/bitnami
-$ helm install mongo-db -f mongodb_config.yaml bitnami/mongodb
+$ helm install mongo-db -f helm-configs/mongodb_config.yaml bitnami/mongodb
 ```
 Install mySQL operator and mongoDB (Helm v2)
 ```bash
@@ -25,7 +25,7 @@ $ helm repo add presslabs https://presslabs.github.io/charts
 $ helm install presslabs/mysql-operator --name mysql-operator
 
 $ helm repo add bitnami https://charts.bitnami.com/bitnami
-$ helm install -f mongodb_config.yaml bitnami/mongodb --name mongo-db
+$ helm install -f helm-configs/mongodb_config.yaml bitnami/mongodb --name mongo-db
 ```
 
 ## Deploy in minikube
