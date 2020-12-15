@@ -13,7 +13,7 @@ data:
   
   
   MYSQL_HOST: ""
-  MYSQL_URI: jdbc:mysql://likesdb:3306/Likes
+  MYSQL_URI: jdbc:mysql://mysql:3306/
   
   MONGODB_HOST: ""
   MONGODB_URI: "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo/admin?replicaSet=rs0"
