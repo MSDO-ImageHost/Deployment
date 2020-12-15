@@ -3,7 +3,7 @@
 ![Configuration validator](https://github.com/MSDO-ImageHost/Deployment/workflows/Configuration%20validator/badge.svg)
 
 ## Prerequisite
-[Minikube](https://minikube.sigs.k8s.io/docs/start/)
+[Minikube installed](https://minikube.sigs.k8s.io/docs/start/)
 
 Fetch RabbitMQ erlang cookie
 ```bash
