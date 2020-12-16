@@ -12,6 +12,7 @@ spec:
       labels:
         app: userscripts
     spec:
+      serviceAccountName: userscripts
       containers:
         - name: userscripts
           image: imagehostmad/user-scripts:latest
