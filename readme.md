@@ -35,7 +35,7 @@ $ helm repo add prometheus-community https://prometheus-community.github.io/helm
 $ helm install prometheus prometheus-community/prometheus
 
 $ helm repo add grafana https://grafana.github.io/helm-charts
-$ helm install grafana -f grafana_config.yaml grafana/grafana
+$ helm install grafana -f ./helm-configs/grafana_config.yaml grafana/grafana
 ```
 Getting access to Grafana
 ```bash
