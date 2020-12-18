@@ -42,8 +42,8 @@ Getting access to Grafana
 $ kubectl expose service grafana --type=NodePort --target-port=3000 --name=grafana-np
 $ minikube service grafana-np
 ```
-For sign in in Grafana GUI use:
-user: admin
+For sign in in Grafana GUI use:   
+user: admin   
 password: ImageHost
 
 Find the dashboard under Search -> Kubernetes Cluster
