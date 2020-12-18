@@ -29,6 +29,24 @@ $ helm install presslabs/mysql-operator --name mysql-operator
 $ helm repo add bitnami https://charts.bitnami.com/bitnami
 $ helm install -f ./helm-configs/mongodb_config.yaml bitnami/mongodb --name mongo-db
 ```
+Install Prometheus and Grafana for monitoring
+```bash
+$ helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+$ helm install prometheus prometheus-community/prometheus
+
+$ helm repo add grafana https://grafana.github.io/helm-charts
+$ helm install grafana -f ./helm-configs/grafana_config.yaml grafana/grafana
+```
+Getting access to Grafana
+```bash
+$ kubectl expose service grafana --type=NodePort --target-port=3000 --name=grafana-np
+$ minikube service grafana-np
+```
+For sign in in Grafana GUI use:   
+user: admin   
+password: ImageHost
+
+Find the dashboard under Search -> Kubernetes Cluster
 
 ## Deploy in minikube
 
