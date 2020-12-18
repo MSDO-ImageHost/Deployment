@@ -14,21 +14,66 @@ spec:
     spec:
       containers:
         - name: comments
-          image: imagehostmad/comments:latest
+          image: imagehostmad/comments:main
           env:
-            - name: MYSQL_URI
+            - name: MYSQL_HOST
               valueFrom:
                 configMapKeyRef:
                   name:  imagehost-config
-                  key:  MYSQL_URI
-            - name: AMQP_URI
+                  key:  MYSQL_HOST
+
+            - name: MYSQL_DATABASE
               valueFrom:
                 configMapKeyRef:
-                  name: imagehost-config
-                  key: RABBITMQ_URI
+                  name:  imagehost-config
+                  key:  COMMENT_DATABASE
+
+            - name: RABBITMQ_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name:  imagehost-config
+                  key:  RABBITMQ_HOST
+
+            - name: RABBITMQ_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name:  imagehost-config
+                  key:  RABBITMQ_PORT
+
             - name:  MYSQL_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name:  imagehost-secrets
                   key:  MYSQL_ROOT_PASSWORD
+
+            - name:  MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name:  imagehost-secrets
+                  key:  USERNAME
+
+            - name:  MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name:  imagehost-secrets
+                  key:  MYSQL_PASSWORD
+
+            - name:  RABBITMQ_DEFAULT_USER
+              valueFrom:
+                secretKeyRef:
+                  name:  imagehost-secrets
+                  key:  RABBITMQ_USERNAME
+
+            - name:  RABBITMQ_DEFAULT_PASS
+              valueFrom:
+                secretKeyRef:
+                  name:  imagehost-secrets
+                  key:  RABBITMQ_PASSWORD
+
+            - name:  RABBITMQ_ERLANG_COOKIE
+              valueFrom:
+                secretKeyRef:
+                  name:  imagehost-secrets
+                  key:  RABBITMQ_ERLANG_COOKIE
+                  
           limits:
