@@ -14,21 +14,28 @@ spec:
     spec:
       containers:
         - name: likes
-          image: lass7965/likes:latest
+          image: imagehostmad/likes:latest
           env:
-            - name: MYSQL_URI
-              valueFrom:
-                configMapKeyRef:
-                  name:  imagehost-config
-                  key:  MYSQL_URI
             - name: AMQP_URI
               valueFrom:
                 configMapKeyRef:
                   name: imagehost-config
                   key: RABBITMQ_URI
+            - name: MYSQL_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name:  imagehost-config
+                  key:  MYSQL_HOST
+            - name: MYSQL_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name:  imagehost-config
+                  key:  MYSQL_PORT
             - name:  MYSQL_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name:  imagehost-secrets
-                  key:  MYSQL_ROOT_PASSWORD
+                  name:  mysql-secrets
+                  key:  ROOT_PASSWORD
+            - name: MYSQL_DB
+              value: "Likes"
           limits:

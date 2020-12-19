@@ -16,19 +16,19 @@ spec:
         - name: tags
           image: imagehostmad/tags:latest
           env:
-            - name: MYSQL_URI
+            - name: MYSQL_HOST
               valueFrom:
                 configMapKeyRef:
                   name:  imagehost-config
-                  key:  MYSQL_URI
-            - name: AMQP_URI
+                  key:  MYSQL_HOST
+            - name: MYSQL_PORT
               valueFrom:
                 configMapKeyRef:
-                  name: imagehost-config
-                  key: RABBITMQ_URI
+                  name:  imagehost-config
+                  key:  MYSQL_PORT
             - name:  MYSQL_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name:  imagehost-secrets
-                  key:  MYSQL_ROOT_PASSWORD
+                  name:  mysql-secrets
+                  key:  ROOT_PASSWORD
           limits:

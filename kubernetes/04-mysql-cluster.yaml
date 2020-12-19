@@ -8,7 +8,7 @@ metadata:
   name: my-cluster
 spec:
   replicas: 2
-  secretName: my-cluster-secret
+  secretName: mysql-secrets
   initFileExtraSQL:
     - "CREATE DATABASE IF NOT EXISTS Likes"
     - "USE Likes"
@@ -16,11 +16,3 @@ spec:
     - "CREATE DATABASE IF NOT EXISTS authentication"
     - "USE authentication"
     - "CREATE TABLE IF NOT EXISTS users (user_id INT AUTO_INCREMENT PRIMARY KEY,username VARCHAR(255) NOT NULL UNIQUE,email VARCHAR(255) NOT NULL UNIQUE,password_hash VARCHAR(255) NOT NULL,role VARCHAR(255),flagged BOOLEAN DEFAULT False,banned_until TIMESTAMP,last_changed TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,last_login TIMESTAMP DEFAULT CURRENT_TIMESTAMP,created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)"
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: my-cluster-secret
-type: Opaque
-data:
-  ROOT_PASSWORD: aGVq
