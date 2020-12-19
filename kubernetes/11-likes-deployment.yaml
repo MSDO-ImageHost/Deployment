@@ -16,11 +16,21 @@ spec:
         - name: likes
           image: imagehostmad/likes:latest
           env:
-            - name: AMQP_URI
+            - name: RABBITMQ_HOST
               valueFrom:
                 configMapKeyRef:
                   name: imagehost-config
-                  key: RABBITMQ_URI
+                  key: RABBITMQ_HOST
+            - name: RABBITMQ_USER
+              valueFrom:
+                secretKeyRef:
+                  name: imagehost-secrets
+                  key: RABBITMQ_USERNAME
+            - name: RABBITMQ_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: imagehost-secrets
+                  key: RABBITMQ_PASSWORD
             - name: MYSQL_HOST
               valueFrom:
                 configMapKeyRef:

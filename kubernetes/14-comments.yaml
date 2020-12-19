@@ -16,11 +16,6 @@ spec:
         - name: comments
           image: imagehostmad/comments:main
           env:
-            - name: AMQP_URI
-              valueFrom:
-                configMapKeyRef:
-                  name: imagehost-config
-                  key: RABBITMQ_URI
             - name: RABBITMQ_HOST
               valueFrom:
                 configMapKeyRef:
@@ -41,11 +36,6 @@ spec:
                 configMapKeyRef:
                   name:  imagehost-config
                   key:  RABBITMQ_PORT
-            - name: MYSQL_USER
-              valueFrom:
-                secretKeyRef:
-                  name: mysql-secrets
-                  key:  USERNAME
             - name: MYSQL_HOST
               valueFrom:
                 configMapKeyRef:
@@ -56,7 +46,12 @@ spec:
                 configMapKeyRef:
                   name:  imagehost-config
                   key:  MYSQL_PORT
-            - name:  MYSQL_PASSWORD
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secrets
+                  key:  USERNAME
+            - name: MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name:  mysql-secrets
