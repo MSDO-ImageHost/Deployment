@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: webgateway
-        image: lass7965/gateway:latest
+        image: imagehostmad/gateway:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
