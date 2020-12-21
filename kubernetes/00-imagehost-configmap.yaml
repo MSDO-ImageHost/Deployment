@@ -12,9 +12,8 @@ data:
   RABBITMQ_URI: amqp://guest:guest@rabbitmq-0.rabbitmq.default.svc.cluster.local # should not be used
   
   
-  MYSQL_HOST: mysql
+  MYSQL_HOST: my-cluster-mysql-master 
   MYSQL_PORT: "3306"
-  MYSQL_URI: mysql://mysql:3306/ # should not be used
   
   MONGODB_HOST: "mongo-db-mongodb-0.mongo-db-mongodb-headless.default.svc.cluster.local"
   MONGODB_URI: "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo/admin?replicaSet=rs0"

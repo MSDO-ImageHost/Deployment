@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: likes
-          image: imagehostmad/likes:latest
+          image: lass7965/likes:latest
           env:
             - name: RABBITMQ_HOST
               valueFrom:
@@ -46,6 +46,11 @@ spec:
                 secretKeyRef:
                   name:  mysql-secrets
                   key:  ROOT_PASSWORD
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name:  mysql-secrets
+                  key:  USERNAME
             - name: MYSQL_DB
               value: "Likes"
           limits:

@@ -16,11 +16,21 @@ spec:
         - name: authentication
           image: imagehostmad/authentication:latest
           env:
-            - name: AMQP_URI
+            - name: RABBITMQ_HOST
               valueFrom:
                 configMapKeyRef:
                   name: imagehost-config
-                  key: RABBITMQ_URI
+                  key: RABBITMQ_HOST
+            - name: RABBITMQ_USER
+              valueFrom:
+                secretKeyRef:
+                  name: imagehost-secrets
+                  key: RABBITMQ_USERNAME
+            - name: RABBITMQ_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: imagehost-secrets
+                  key: RABBITMQ_PASSWORD
             - name: MYSQL_HOST
               valueFrom:
                 configMapKeyRef:
@@ -36,4 +46,11 @@ spec:
                 secretKeyRef:
                   name:  mysql-secrets
                   key:  ROOT_PASSWORD
+            - name: MYSQL_DB
+              value: "authentication"
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name:  mysql-secrets
+                  key:  USERNAME
           limits:
