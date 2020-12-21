@@ -16,7 +16,7 @@ data:
   MYSQL_PORT: "3306"
   
   MONGODB_HOST: "mongo-db-mongodb-0.mongo-db-mongodb-headless.default.svc.cluster.local"
-  MONGODB_URI: "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo/admin?replicaSet=rs0"
+  MONGODB_URI: "mongodb://root:secret@mongo-db-mongodb-0.mongo-db-mongodb-headless.default.svc.cluster.local"
 
   POSTGRES_HOST: ""
   POSTGRES_URI: ""
