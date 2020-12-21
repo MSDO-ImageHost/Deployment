@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: likes
-          image: lass7965/likes:latest
+          image: imagehostmad/likes:latest
           env:
             - name: RABBITMQ_HOST
               valueFrom:
