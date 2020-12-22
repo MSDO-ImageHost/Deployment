@@ -58,11 +58,10 @@ spec:
                   key:  ROOT_PASSWORD
             - name: MYSQL_DATABASE
               value: "Comments"
-          initContainers:
-          - name: init-rabbitmq
-            image: busybox:1.28
-            command: ['sh', '-c', "until nslookup rabbitmq; do echo waiting for rabbitmq; sleep 5; done"]
-          - name: init-mysql
-            image: busybox:1.28
-            command: ['sh', '-c', "until nslookup my-cluster-mysql; do echo waiting for mysql; sleep 5; done"]
-          limits:
+      initContainers:
+      - name: init-rabbitmq
+        image: busybox:1.28
+        command: ['sh', '-c', "until nslookup rabbitmq; do echo waiting for rabbitmq; sleep 5; done"]
+      - name: init-mysql
+        image: busybox:1.28
+        command: ['sh', '-c', "until nslookup my-cluster-mysql; do echo waiting for mysql; sleep 5; done"]
