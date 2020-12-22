@@ -55,4 +55,11 @@ spec:
               value: "Tags"
             - name: SECRET_KEY
               value: "secret"
+          initContainers:
+          - name: init-rabbitmq
+            image: busybox:1.28
+            command: ['sh', '-c', "until nslookup rabbitmq; do echo waiting for rabbitmq; sleep 5; done"]
+          - name: init-mysql
+            image: busybox:1.28
+            command: ['sh', '-c', "until nslookup my-cluster-mysql; do echo waiting for mysql; sleep 5; done"]
           limits:
