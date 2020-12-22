@@ -47,6 +47,10 @@ spec:
                 secretKeyRef:
                   name: imagehost-secrets
                   key: MONGODB_USERNAME
+          initContainers:
+          - name: init-rabbitmq
+            image: busybox:1.28
+            command: ['sh', '-c', "until nslookup rabbitmq; do echo waiting for rabbitmq; sleep 20; done"]
           limits:
           volumeMounts:
             - name: userscripts-persistent-storage
