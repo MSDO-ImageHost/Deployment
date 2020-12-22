@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: webgateway
-        image: imagehostmad/gateway:latest
+        image: imagehostmad/web-gateway:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
@@ -41,4 +41,9 @@ spec:
             secretKeyRef:
               name: imagehost-secrets
               key: RABBITMQ_PASSWORD
+        - name: JWT_HMAC_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: imagehost-secrets
+              key: JWT_TOKEN_SECRET
           limits:
