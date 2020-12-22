@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: imagestorage
-          image: imagehostmad/imagestorage:v0.9.1
+          image: imagehostmad/imagestorage:main
           env:
             - name: AMQP_HOST
               valueFrom:
