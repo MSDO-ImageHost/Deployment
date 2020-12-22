@@ -1,0 +1,21 @@
+# Requires the commands: 
+# helm repo add presslabs https://presslabs.github.io/charts
+# helm install presslabs/mysql-operator --generate-name
+
+apiVersion: mysql.presslabs.org/v1alpha1
+kind: MysqlCluster
+metadata:
+  name: my-cluster
+spec:
+  replicas: 2
+  secretName: mysql-secrets
+  initFileExtraSQL:
+    - "CREATE DATABASE IF NOT EXISTS Likes"
+    - "USE Likes"
+    - "CREATE TABLE IF NOT EXISTS Likes (postID varchar(255) NOT NULL,userID varchar(255) NOT NULL,Liked_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)"
+    - "CREATE DATABASE IF NOT EXISTS authentication"
+    - "USE authentication"
+    - "CREATE TABLE IF NOT EXISTS users (user_id INT AUTO_INCREMENT PRIMARY KEY,username VARCHAR(255) NOT NULL UNIQUE,email VARCHAR(255) NOT NULL UNIQUE,password_hash VARCHAR(255) NOT NULL,role VARCHAR(255),flagged BOOLEAN DEFAULT False,banned_until TIMESTAMP,last_changed TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,last_login TIMESTAMP DEFAULT CURRENT_TIMESTAMP,created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)"
+    - "CREATE DATABASE IF NOT EXISTS Comments"
+    - "CREATE DATABASE IF NOT EXISTS Tags"
+    - "CREATE DATABASE IF NOT EXISTS imagestorage"

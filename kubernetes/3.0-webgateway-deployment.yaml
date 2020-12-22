@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webgateway
+  labels:
+    app: webgateway
+spec:
+  selector:
+    matchLabels:
+      app: webgateway
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: webgateway
+    spec:
+      containers:
+      - name: webgateway
+        image: lass7965/web-gateway:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+        env:
+        - name: AMQP_URI
+          valueFrom:
+            configMapKeyRef:
+              name: imagehost-config
+              key: RABBITMQ_URI
+        - name: RABBIT_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: imagehost-config
+              key: RABBITMQ_PORT
+        - name: RABBIT_USER
+          valueFrom:
+            secretKeyRef:
+              name: imagehost-secrets
+              key: RABBITMQ_USERNAME
+        - name: RABBIT_PASS
+          valueFrom:
+            secretKeyRef:
+              name: imagehost-secrets
+              key: RABBITMQ_PASSWORD
+        - name: JWT_HMAC_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: imagehost-secrets
+              key: JWT_TOKEN_SECRET
+          limits:

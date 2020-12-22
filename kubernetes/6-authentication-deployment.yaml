@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: authentication
+spec:
+  selector:
+    matchLabels:
+      app: authentication
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: authentication
+    spec:
+      containers:
+        - name: authentication
+          image: imagehostmad/authentication:latest
+          env:
+            - name: RABBITMQ_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: imagehost-config
+                  key: RABBITMQ_HOST
+            - name: RABBITMQ_USER
+              valueFrom:
+                secretKeyRef:
+                  name: imagehost-secrets
+                  key: RABBITMQ_USERNAME
+            - name: RABBITMQ_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: imagehost-secrets
+                  key: RABBITMQ_PASSWORD
+            - name: MYSQL_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name:  imagehost-config
+                  key:  MYSQL_HOST
+            - name: MYSQL_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name:  imagehost-config
+                  key:  MYSQL_PORT
+            - name:  MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name:  mysql-secrets
+                  key:  ROOT_PASSWORD
+            - name: MYSQL_DB
+              value: "authentication"
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name:  mysql-secrets
+                  key:  USERNAME
+          limits:
